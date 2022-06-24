@@ -13,16 +13,12 @@ function App() {
     const data = {
       message: message,
     };
-    await axios
-      .post(url, data)
-      .then(function (response) {
-        console.log('publishing successful');
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log('publish error');
-        console.log(error);
-      });
+    await axios.post(url, data, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+    });
   };
 
   const handleSubscribe = async (e: any) => {
@@ -31,16 +27,12 @@ function App() {
     const data = {
       email: email,
     };
-    await axios
-      .post(url, data)
-      .then(function (response) {
-        console.log('subcribing successful');
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log('subscribe error');
-        console.log(error);
-      });
+    await axios.post(url, data, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+    });
   };
 
   return (
