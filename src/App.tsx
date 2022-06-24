@@ -6,6 +6,15 @@ function App() {
   const [message, setMessage] = React.useState<String>();
   const [email, setEmail] = React.useState<String>();
 
+  const headers = {
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': '*',
+    'content-type': 'application/json',
+    'Access-Control-Allow-Credentials': true,
+    Accept: '*/*',
+  };
+
   const handlePublish = async (e: any) => {
     console.log('message', message);
     const url =
@@ -14,10 +23,7 @@ function App() {
       message: message,
     };
     await axios.post(url, data, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
+      headers,
     });
   };
 
@@ -28,10 +34,7 @@ function App() {
       email: email,
     };
     await axios.post(url, data, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
+      headers,
     });
   };
 
