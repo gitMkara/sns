@@ -6,42 +6,43 @@ function App() {
   const [message, setMessage] = React.useState<String>();
   const [email, setEmail] = React.useState<String>();
 
-  const headers = {
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': '*',
-    'content-type': 'application/json',
-    'Access-Control-Allow-Credentials': true,
-    Accept: '*/*',
-  };
-
   const handlePublish = async (e: any) => {
     console.log('message', message);
     const url =
-      'https://924rac1219.execute-api.us-east-1.amazonaws.com/publish';
+      'https://w3jw4ti1s2.execute-api.us-east-1.amazonaws.com/dev/sns/pub';
     const data = {
       message: message,
     };
-    await axios.post(url, data, {
-      headers,
-    });
+    await axios
+      .post(url, data)
+      .then((res) => {
+        console.log('res', res);
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
   };
 
   const handleSubscribe = async (e: any) => {
     const url =
-      'https://924rac1219.execute-api.us-east-1.amazonaws.com/subscribe';
+      'https://w3jw4ti1s2.execute-api.us-east-1.amazonaws.com/dev/sns/sub';
     const data = {
-      email: email,
+      mail: email,
     };
-    await axios.post(url, data, {
-      headers,
-    });
+    await axios
+      .post(url, data)
+      .then((res) => {
+        console.log('res', res);
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
   };
 
   return (
     <div className='App'>
       <input
-        type='text'
+        type='email'
         placeholder='email'
         onChange={(e: any) => setEmail(e.target.value)}
       />
