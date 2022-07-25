@@ -5,6 +5,7 @@ import * as React from 'react';
 function App() {
   const [message, setMessage] = React.useState<String>();
   const [email, setEmail] = React.useState<String>();
+  const [isDisplay, setIsDisplay] = React.useState<boolean>(true);
 
   const handlePublish = async (e: any) => {
     console.log('message', message);
@@ -33,6 +34,7 @@ function App() {
       .post(url, data)
       .then((res) => {
         console.log('res', res);
+        setIsDisplay(false);
       })
       .catch((err) => {
         console.log('err', err);
@@ -46,14 +48,22 @@ function App() {
         placeholder='email'
         onChange={(e: any) => setEmail(e.target.value)}
       />
+      {!isDisplay && (
+        <h2 style={{color: 'green'}}>
+          Please visit the mail and confirm subscription.
+        </h2>
+      )}
       <button onClick={handleSubscribe}>GET Subscribe</button>
 
       <input
         type='text'
         placeholder='your message'
         onChange={(e: any) => setMessage(e.target.value)}
+        disabled={isDisplay}
       />
-      <button onClick={handlePublish}>Publish Message</button>
+      <button disabled={isDisplay} onClick={handlePublish}>
+        Publish Message
+      </button>
     </div>
   );
 }
